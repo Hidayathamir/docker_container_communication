@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  myapp-mysql:
+    image: mysql:8.0
+    networks:
+      - myapp-network
+    ports:
+      - "9306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: myappdatabase
+      MYSQL_USER: myappuser
+      MYSQL_PASSWORD: myapppassword
+
+  myapp-go:
+    build: .
+    networks:
+      - myapp-network
+    ports:
+      - "9080:8080"
+
+networks:
+  myapp-network:
+    driver: bridge
